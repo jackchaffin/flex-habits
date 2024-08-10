@@ -1,11 +1,7 @@
-// src/HabitTracker.js
-
 import React, { useState, useEffect } from "react";
 import "./HabitTracker.css";
-import Modal from "react-modal";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
 import HabitCell from "./HabitCell";
+import HabitDetailsModal from "./HabitDetailsModal"; // Import the new HabitDetailsModal component
 
 // Utility Functions
 const calculateOverallWeeklyGoal = (habits) =>
@@ -128,6 +124,7 @@ const HabitTracker = () => {
   );
 
   const openModal = (habitIndex) => {
+    console.log("Opening modal for habit index:", habitIndex);
     setSelectedHabit(habitIndex);
     setHabitDetails({ ...habits[habitIndex] });
     setModalIsOpen(true);
@@ -307,6 +304,12 @@ const HabitTracker = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    console.log("Selected habit:", selectedHabit);
+    console.log("Habit details:", habitDetails);
+    console.log("Modal is open:", modalIsOpen);
+  }, [selectedHabit, habitDetails, modalIsOpen]);
+
   return (
     <div className="habit-tracker">
       <table>
@@ -331,7 +334,7 @@ const HabitTracker = () => {
             <tr key={habitIndex}>
               <td
                 className="habit-name"
-                onClick={() => openModal(habitIndex)}
+                onClick={() => openModal(habitIndex)} // Ensure this is correct
                 title={`Easy: ${habit.levelDescriptions[0]}, Medium: ${habit.levelDescriptions[1]}, Hard: ${habit.levelDescriptions[2]}, Skip: ${habit.levelDescriptions[3]}`}
               >
                 {habit.name}
@@ -398,118 +401,19 @@ const HabitTracker = () => {
 
       <button onClick={addHabit}>Add Habit</button>
 
-      <Modal
+      <HabitDetailsModal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Habit Details"
-        ariaHideApp={false}
-        className="modal"
-        overlayClassName="overlay"
-      >
-        {selectedHabit !== null && (
-          <div>
-            <h2>
-              {editMode ? (
-                <input
-                  type="text"
-                  value={habitDetails.name}
-                  onChange={(e) =>
-                    setHabitDetails({ ...habitDetails, name: e.target.value })
-                  }
-                />
-              ) : (
-                habitDetails.name
-              )}
-            </h2>
-            <p>
-              {editMode ? (
-                <textarea
-                  value={habitDetails.description}
-                  onChange={(e) =>
-                    setHabitDetails({
-                      ...habitDetails,
-                      description: e.target.value,
-                    })
-                  }
-                />
-              ) : (
-                habitDetails.description
-              )}
-            </p>
-            <div>
-              <h3>Levels of Completion Descriptions</h3>
-              {habitDetails.levels.map((level, index) => (
-                <div key={index}>
-                  <strong>{level}:</strong>{" "}
-                  {editMode ? (
-                    <input
-                      type="text"
-                      value={habitDetails.levelDescriptions[index]}
-                      onChange={(e) => {
-                        const newLevelDescriptions = [
-                          ...habitDetails.levelDescriptions,
-                        ];
-                        newLevelDescriptions[index] = e.target.value;
-                        setHabitDetails({
-                          ...habitDetails,
-                          levelDescriptions: newLevelDescriptions,
-                        });
-                      }}
-                    />
-                  ) : (
-                    <span>{habitDetails.levelDescriptions[index]}</span>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div>
-              <h3>Active Days</h3>
-              {allDays.map((day, index) => (
-                <div key={day}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={habitDetails.activeDays[index]}
-                      onChange={(e) => {
-                        const newActiveDays = [...habitDetails.activeDays];
-                        newActiveDays[index] = e.target.checked;
-                        setHabitDetails({
-                          ...habitDetails,
-                          activeDays: newActiveDays,
-                        });
-                      }}
-                      disabled={!editMode}
-                    />
-                    {day}
-                  </label>
-                </div>
-              ))}
-            </div>
-            <div>
-              <h3>Weekly Goal</h3>
-              {editMode ? (
-                <Slider
-                  min={0}
-                  max={calculateMaxPoints(habitDetails)}
-                  value={habitDetails.weeklyGoal}
-                  onChange={(value) =>
-                    setHabitDetails({ ...habitDetails, weeklyGoal: value })
-                  }
-                />
-              ) : (
-                <span>{habitDetails.weeklyGoal}</span>
-              )}
-            </div>
-            {editMode ? (
-              <button onClick={handleSaveChanges}>Save</button>
-            ) : (
-              <button onClick={() => setEditMode(true)}>Edit</button>
-            )}
-            <button onClick={() => removeHabit(selectedHabit)}>Remove</button>
-            <button onClick={closeModal}>Close</button>
-          </div>
-        )}
-      </Modal>
+        closeModal={closeModal}
+        editMode={editMode}
+        habitDetails={habitDetails}
+        setHabitDetails={setHabitDetails}
+        handleSaveChanges={handleSaveChanges}
+        removeHabit={removeHabit}
+        selectedHabit={selectedHabit}
+        setEditMode={setEditMode}
+        allDays={allDays}
+        calculateMaxPoints={calculateMaxPoints}
+      />
     </div>
   );
 };
