@@ -1,0 +1,78 @@
+/* src/HabitTracker.css */
+
+.habit-tracker {
+    padding: 20px;
+    color: white; /* Ensure text color contrasts with dark background */
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #444; /* Slightly lighter grey for headers */
+    color: white;
+  }
+  
+  td {
+    background-color: #555; /* Slightly lighter grey for table cells */
+    color: white;
+  }
+  
+  .goal-reached {
+    background-color: green;
+    color: white;
+  }
+  
+  .habit-name {
+    cursor: pointer;
+  }
+  
+  .habit-cell.white {
+    background-color: white;
+    color: black;
+  }
+  
+  .habit-cell.red {
+    background-color: darkred;
+    color: white;
+  }
+  
+  .habit-cell.yellow {
+    background-color: darkgoldenrod;
+    color: black;
+  }
+  
+  .habit-cell.green {
+    background-color: darkgreen;
+    color: white;
+  }
+  
+  .habit-cell.grey {
+    background-color: grey;
+    color: white;
+  }
+  
+  .habit-points {
+    font-size: 0.75em;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+  }
+  
+  .habit-label {
+    font-size: 0.75em;
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+  }
+  

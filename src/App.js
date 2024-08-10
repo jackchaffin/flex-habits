@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
 
-function App() {
+import React from "react";
+import "./App.css";
+import HabitTracker from "./HabitTracker";
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="app-header">
+        <h1>FlexHabits</h1>
+        <p>the smarter way to track habits</p>
       </header>
+      <HabitTracker />
+      <footer className="app-footer">
+        <p>www.flexhabits.com</p>
+      </footer>
     </div>
   );
-}
+};
 
 export default App;
