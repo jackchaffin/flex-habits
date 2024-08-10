@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/flex-habits/static/css/main.45d05e25.css",
+    "main.js": "/flex-habits/static/js/main.dc41ad77.js",
+    "index.html": "/flex-habits/index.html",
+    "main.45d05e25.css.map": "/flex-habits/static/css/main.45d05e25.css.map",
+    "main.dc41ad77.js.map": "/flex-habits/static/js/main.dc41ad77.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.45d05e25.css",
+    "static/js/main.dc41ad77.js"
+  ]
+}
